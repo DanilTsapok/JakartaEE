@@ -1,6 +1,7 @@
 package myapp.bean;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
@@ -8,17 +9,19 @@ import jakarta.servlet.http.HttpSession;
 import myapp.entity.User;
 import myapp.service.UserService;
 
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Named
-@RequestScoped
-public class UserBean {
+@SessionScoped
+public class UserBean implements Serializable {
     private User user = new User();
     private List<User> users;
     private List<String> userInfoList;
     private final UserService userService;
 
+    private boolean loginBtn = true;
     public User getCurrentUser(){
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         return (User) session.getAttribute("user");
@@ -28,6 +31,8 @@ public class UserBean {
         this.userService = new UserService();
         loadUsers();
     }
+
+
 
     public void loadUsers() {
         users = userService.findAllUsers(10);
@@ -49,6 +54,7 @@ public class UserBean {
             if(loginUser != null){
                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 session.setAttribute("user", loginUser);
+                loginBtn = false;
                 return "/Home.xhtml?faces-redirect=true";
             }
             else {
@@ -91,7 +97,13 @@ public class UserBean {
     }
 
 
+public boolean getLoginBtn() {
+        return loginBtn;
+}
 
+public  boolean isLoginBtn() {
+        return loginBtn;
+}
     public User getUser() {
         return user;
     }

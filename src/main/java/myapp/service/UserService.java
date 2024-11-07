@@ -19,7 +19,8 @@ public class UserService {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         user.setPassword(hashPassword(user.getPassword()));
-        TypedQuery<User> query = em.createNamedQuery("User.findByEmail", User.class);
+        String jpql = "SELECT u FROM User u WHERE LOWER(u.email) = LOWER(:email)";
+        TypedQuery<User> query = em.createQuery(jpql, User.class);
         query.setParameter("email", user.getEmail());
 
         if(!query.getResultList().isEmpty()) {
@@ -32,7 +33,8 @@ public class UserService {
      public User login(String email, String password) throws NoSuchAlgorithmException {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        TypedQuery<User> query = em.createNamedQuery("User.findByEmail", User.class);
+        String jpql = "SELECT u FROM User u WHERE LOWER(u.email) = LOWER(:email)";
+        TypedQuery<User> query = em.createQuery(jpql, User.class);
         query.setParameter("email", email);
         try{
             User user = query.getSingleResult();
@@ -42,9 +44,6 @@ public class UserService {
             }
         }
         catch(NoResultException e){
-            em.close();
-        }
-        finally {
             em.close();
         }
         return null;

@@ -5,14 +5,14 @@
                                   https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
     <navigation-rule>
         <from-view-id>/users.xhtml</from-view-id>
-<!--        <navigation-case>-->
-<!--            <from-outcome>createUser</from-outcome>-->
-<!--            <to-view-id>/createUser.xhtml</to-view-id>-->
-<!--        </navigation-case>-->
-<!--        <navigation-case>-->
-<!--            <from-outcome>editUser</from-outcome>-->
-<!--            <to-view-id>/editUser.xhtml</to-view-id>-->
-<!--        </navigation-case>-->
+      <navigation-case>
+            <from-outcome>Login</from-outcome>
+            <to-view-id>/LoginForm.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Register</from-outcome>
+           <to-view-id>/RegisterForm.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 
 

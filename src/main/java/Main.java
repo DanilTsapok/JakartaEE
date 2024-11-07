@@ -13,7 +13,8 @@ public class Main {
         UserService userService = new UserService();
         User user = new User("Danil", "danya@gmail.com", userService.hashPassword("12345"));
         Post post = new Post(user, "Test", "test", 1, new Date());
-
+        Post post1 = new Post(user, "Test", "test", 1, new Date());
+        Post post2 = new Post(user, "Test", "test", 1, new Date());
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
         EntityManager em = emf.createEntityManager();
 

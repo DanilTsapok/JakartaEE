@@ -24,7 +24,8 @@ public class PostsService {
     public  List<Post> getAllPostsAuthUser(User creator){
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        TypedQuery<Post> query = em.createQuery("SELECT p FROM Post p where p.creator= :creator", Post.class);
+        String jpql = "SELECT COUNT(p) FROM Post p where p.creator= :creator";
+        TypedQuery<Post> query = em.createQuery(jpql, Post.class);
         query.setParameter("creator", creator);
         List<Post> posts = query.getResultList();
         em.getTransaction().commit();
