@@ -30,6 +30,7 @@ public class UserService {
         em.getTransaction().commit();
         em.close();
     }
+
      public User login(String email, String password) throws NoSuchAlgorithmException {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
