@@ -22,7 +22,6 @@ public class UserService {
         String jpql = "SELECT u FROM User u WHERE LOWER(u.email) = LOWER(:email)";
         TypedQuery<User> query = em.createQuery(jpql, User.class);
         query.setParameter("email", user.getEmail());
-
         if(!query.getResultList().isEmpty()) {
           em.close();
         }
@@ -40,7 +39,6 @@ public class UserService {
         try{
             User user = query.getSingleResult();
             if(user.getPassword().equals(hashPassword(password))){
-                em.close();
                 return user;
             }
         }

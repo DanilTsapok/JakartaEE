@@ -18,12 +18,11 @@ import java.util.List;
 public class UserBean implements Serializable {
     private User user = new User();
     private List<User> users;
-    private List<String> userInfoList;
     private final UserService userService;
-
     private boolean loginBtn = true;
+
     public User getCurrentUser(){
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         return (User) session.getAttribute("user");
     }
 
@@ -31,7 +30,6 @@ public class UserBean implements Serializable {
         this.userService = new UserService();
         loadUsers();
     }
-
 
 
     public void loadUsers() {
@@ -54,6 +52,7 @@ public class UserBean implements Serializable {
             if(loginUser != null){
                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 session.setAttribute("user", loginUser);
+                user=loginUser;
                 loginBtn = false;
                 return "/Home.xhtml?faces-redirect=true";
             }
@@ -121,9 +120,7 @@ public  boolean isLoginBtn() {
     }
 
 
-    public List<String> getUserInfoList() {
-        return userInfoList;
-    }
+
 
 
 }

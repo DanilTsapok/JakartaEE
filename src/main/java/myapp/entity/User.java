@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "User_id_gen")
     @SequenceGenerator(name = "User_id_gen", sequenceName = "User_id_seq", allocationSize = 1)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false )
     private Long id;
 
     @Size(max = 100, message = "Name cannot exceed 100 characters")
