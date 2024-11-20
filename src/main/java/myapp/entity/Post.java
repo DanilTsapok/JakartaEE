@@ -13,6 +13,7 @@ public class Post {
     @SequenceGenerator(name = "User_id_gen", sequenceName = "User_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "creator_id", nullable = false)
     private User creator;

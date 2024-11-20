@@ -21,18 +21,17 @@ public class PostsService {
         return posts;
     }
 
-    public  List<Post> getAllPostsAuthUser(User creator){
+    public List<Post> getAllPostsAuthUser(Long creatorId){
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        String jpql = "SELECT COUNT(p) FROM Post p where p.creator= :creator";
-        TypedQuery<Post> query = em.createQuery(jpql, Post.class);
-        query.setParameter("creator", creator);
+        TypedQuery<Post> query = em.createQuery("SELECT p FROM Post p where p.creator.id = :creatorId", Post.class);
+        query.setParameter("creatorId", creatorId);
         List<Post> posts = query.getResultList();
         em.getTransaction().commit();
         return posts;
     }
 
-    public  void createPost(Post post, User creator ){
+    public void createPost(Post post, User creator ){
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         post.setCreator(creator);

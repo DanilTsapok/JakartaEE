@@ -50,7 +50,6 @@ public class UserService {
      public void Logout(){
          HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
          session.invalidate();
-
      }
 
     public String hashPassword(String password) throws NoSuchAlgorithmException {

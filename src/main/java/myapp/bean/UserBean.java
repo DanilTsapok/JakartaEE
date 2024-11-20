@@ -25,23 +25,19 @@ public class UserBean implements Serializable {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         return (User) session.getAttribute("user");
     }
-
     public UserBean() {
         this.userService = new UserService();
         loadUsers();
     }
-
-
     public void loadUsers() {
         users = userService.findAllUsers(10);
     }
-
     public String registerUser(){
         try{
             userService.registerUser(user);
             loadUsers();
             user = new User();
-            return "/index.xhtml?faces-redirect=true";
+            return "index.xhtml";
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -54,20 +50,20 @@ public class UserBean implements Serializable {
                 session.setAttribute("user", loginUser);
                 user=loginUser;
                 loginBtn = false;
-                return "/Home.xhtml?faces-redirect=true";
+                return "Home.xhtml";
             }
             else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Invalid Email or Password"));
-                return "/LoginForm.xhtml?faces-redirect=true";
+                return "LoginForm.xhtml";
             }
         }catch (NoSuchAlgorithmException e){
-            return "/LoginForm.xhtml?faces-redirect=true";
+            return "LoginForm.xhtml";
         }
     }
     public String logout(){
         userService.Logout();
         loadUsers();
-        return "/Home.xhtml?faces-redirect=true";
+        return "Home.xhtml";
     }
     public String createUser() {
         userService.createUser(user);
@@ -94,27 +90,21 @@ public class UserBean implements Serializable {
         userService.deleteUser(id);
         loadUsers();
     }
-
-
-public boolean getLoginBtn() {
+    public boolean getLoginBtn() {
         return loginBtn;
-}
-
-public  boolean isLoginBtn() {
+    }
+    public  boolean isLoginBtn() {
         return loginBtn;
-}
+    }
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
-
     public List<User> getUsers() {
         return users;
     }
-
     public int getUserCount() {
         return users != null ? users.size() : 0;
     }

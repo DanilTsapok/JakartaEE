@@ -19,6 +19,10 @@ public class Main {
         em.getTransaction().begin();
         em.persist(user);
         em.persist(post);
+        em.persist(post);
+
+
+
         em.getTransaction().commit();
         em.close();
 

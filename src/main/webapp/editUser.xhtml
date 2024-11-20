@@ -118,11 +118,8 @@
             <h:inputText id="email" value="#{userBean.user.email}" required="true" requiredMessage="Email is required" styleClass="form-input" />
 
         </div>
-
-
             <h:outputLabel />
             <h:commandButton value="Edit" action="#{userBean.updateUser()}" styleClass="form-button"/>
-
         <h:message for="name" styleClass="validation-messages" /><br/>
         <h:message for="email" styleClass="validation-messages" />
     </h:form>
