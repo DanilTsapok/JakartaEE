@@ -46,9 +46,11 @@ public class PostBean {
         return "Home";
     }
 
-    public void deletePost(Long id) {
+    public String deletePost(Long id) {
         postsService.deletePost(id);
         loadPosts();
+        userProfile();
+        return "UserProfile";
     }
 
     public String userProfile() {

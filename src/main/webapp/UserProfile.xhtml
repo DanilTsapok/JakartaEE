@@ -65,6 +65,8 @@
          width: 100%;
          height: calc(100% - 60px);
          display: flex;
+         flex-direction: column;
+         align-items: center;
          justify-content: center;
          overflow: hidden;
       }
@@ -337,6 +339,12 @@
          gap: 10px;
          padding: 12px 24px;
          border-bottom: 1px solid #2d2d2d;
+         position: relative;
+      }
+      .deleteBtn{
+         position: absolute;
+         top: 10px;
+         right: 10px;
       }
       @keyframes anim {
          0% {
@@ -416,9 +424,7 @@
 <div class="postsContainer">
    <h2>#{userBean.user.name}</h2>
    <h2>#{userBean.user.id}</h2>
-
    <h:dataTable value="#{postBean.userPosts}" var="post" styleClass="postsBody" >
-
          <h:column styleClass="postBody" >
                <div class="userIcon">#{post.creator.name.charAt(0)}</div>
                <div class="postContent">
@@ -426,12 +432,11 @@
                   <h4>#{post.name}</h4>
                   <h4>#{post.description}</h4>
                   <h4>#{post.likes}</h4>
+                  <h:form>
+                     <h:commandLink action="#{postBean.deletePost(post.id)}" styleClass="deleteBtn"><img width="25" height="25" src="https://img.icons8.com/fluency-systems-regular/48/FFFFFF/delete-trash--v3.png" alt="delete-trash--v3"/></h:commandLink>
+                  </h:form>
                </div>
-
-
          </h:column>
-
-
    </h:dataTable>
 </div>
 
@@ -453,13 +458,34 @@
          <h:commandButton value="Publish" styleClass="publishButton" action="#{postBean.createPost}"/>
       </h:form>
    </div>
-
+</div>
+<div id="modalEdit" class="modal">
+   <div class="modal-content">
+      <div class="headerModal">
+         <h4>Edit profile</h4>
+         <span class="close" id="closeEdit">X</span>
+      </div>
+      <h:form styleClass="formCreatePost">
+         <div class="input-container">
+            <h:inputText id="username" value="#{userBean.user.name}" a:placeholder="#{userBean.user.name}"/>
+         </div>
+         <div class="input-container">
+            <h:inputTextarea id="email" value="#{userBean.user.email}" a:placeholder="#{userBean.user.email}"/>
+         </div>
+         <h:commandButton value="Update" styleClass="publishButton" action="#{userBean.updateUser()}"/>
+      </h:form>
+   </div>
 </div>
 </body>
 <script>
    let btn = document.querySelector(".btnCreate");
    let modal = document.getElementById("modalCreate");
    let closeBtn = document.getElementById("close");
+
+   let modalEdit = document.getElementById("modalEdit");
+   let btnEdit =
+
+
    console.log(closeBtn)
    btn?.addEventListener("click", function () {
       modal.style.display = "flex";

@@ -72,18 +72,13 @@ public class UserBean implements Serializable {
         return "users";
     }
 
-    public String editUser(Long id) {
-        user = userService.findById(id);
-        return "editUser";
-    }
-
     public String updateUser() {
         if (user.getId() != null) {
             userService.updateUser(user);
         }
         loadUsers();
         user = new User();
-        return "users";
+        return "UserProfile";
     }
 
     public void deleteUser(Long id) {

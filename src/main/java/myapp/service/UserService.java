@@ -82,11 +82,9 @@ public class UserService {
     public void updateUser(User user) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-
         if (em.getFlushMode() != FlushModeType.COMMIT) {
             em.setFlushMode(FlushModeType.COMMIT);
         }
-
         em.merge(user);
         em.getTransaction().commit();
         em.close();
