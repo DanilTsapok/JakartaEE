@@ -16,7 +16,7 @@ public class PostsService {
     public List<Post> getAllPosts(){
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        List<Post> posts = em.createQuery("SELECT p FROM Post p", Post.class).getResultList();
+        List<Post> posts = em.createQuery("SELECT p FROM Post p ORDER BY p.createdData desc ", Post.class).getResultList();
         em.getTransaction().commit();
         return posts;
     }
@@ -24,7 +24,7 @@ public class PostsService {
     public List<Post> getAllPostsAuthUser(Long creatorId){
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        TypedQuery<Post> query = em.createQuery("SELECT p FROM Post p where p.creator.id = :creatorId", Post.class);
+        TypedQuery<Post> query = em.createQuery("SELECT p FROM Post p where p.creator.id = :creatorId ORDER BY p.createdData desc", Post.class);
         query.setParameter("creatorId", creatorId);
         List<Post> posts = query.getResultList();
         em.getTransaction().commit();

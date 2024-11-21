@@ -32,6 +32,7 @@ public class PostBean {
 
     public PostBean() {
         this.postsService = new PostsService();
+
         loadPosts();
     }
     public void loadPosts() {

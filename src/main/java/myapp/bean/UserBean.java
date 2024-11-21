@@ -4,6 +4,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpSession;
 import myapp.entity.User;
@@ -21,6 +22,8 @@ public class UserBean implements Serializable {
     private final UserService userService;
     private boolean loginBtn = true;
 
+    @Inject
+    private PostBean postBean;
     public User getCurrentUser(){
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         return (User) session.getAttribute("user");
@@ -77,8 +80,9 @@ public class UserBean implements Serializable {
             userService.updateUser(user);
         }
         loadUsers();
+        postBean.loadPosts();
         user = new User();
-        return "UserProfile";
+        return "LoginForm";
     }
 
     public void deleteUser(Long id) {
