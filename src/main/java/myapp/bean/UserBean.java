@@ -37,7 +37,7 @@ public class UserBean implements Serializable {
             userService.registerUser(user);
             loadUsers();
             user = new User();
-            return "index.xhtml";
+            return "index";
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -50,20 +50,20 @@ public class UserBean implements Serializable {
                 session.setAttribute("user", loginUser);
                 user=loginUser;
                 loginBtn = false;
-                return "Home.xhtml";
+                return "Home";
             }
             else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Invalid Email or Password"));
-                return "LoginForm.xhtml";
+                return "LoginForm";
             }
         }catch (NoSuchAlgorithmException e){
-            return "LoginForm.xhtml";
+            return "LoginForm";
         }
     }
     public String logout(){
         userService.Logout();
         loadUsers();
-        return "Home.xhtml";
+        return "Home";
     }
     public String createUser() {
         userService.createUser(user);

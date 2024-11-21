@@ -76,8 +76,7 @@
          display: flex;
          color: white;
          overflow-y: scroll;
-         border-radius: 20px 20px 0px 0px;
-         border: 1px solid #2d2d2d;
+
          background-color: #181818;
       }
       .postsBody::-webkit-scrollbar {
@@ -239,6 +238,8 @@
          background-color: rgba(0,0,0,0.5);
 
       }
+
+
       .modal-content{
          background-color: #181818;
          display: flex;
@@ -387,6 +388,57 @@
             left: 100%;
          }
       }
+      .user{
+         padding: 20px;
+         width: 640px;
+         height: 131px;
+         display: flex;
+
+         align-items: center;
+         border-radius: 20px 20px 0px 0px;
+         justify-content: space-between;
+         background-color: #181818;
+         border-bottom: 1px solid #6b7280;
+      }
+      .userName {
+         font-size: 20px;
+         text-transform: uppercase;
+         color: #FFFFFF;
+      }
+      h2{
+         font-size: 20px;
+      }
+      .userIcon1{
+         width: 80px;
+         height: 80px;
+         border-radius: 50%;
+         border: 2px solid #4a4a4a;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         color: white;
+         text-transform: uppercase;
+         user-select: none;
+      }
+      .editUserBtn{
+         width: 100px;
+         height: 40px;
+         border-radius: 10px;
+         border: 2px solid white;
+         background-color: transparent;
+         color: white;
+      }
+      .editUserBtn:hover{
+         background-color: white;
+         transition: background-color .3s ease-in-out;
+         cursor: pointer;
+         color: black;
+      }
+      .user div{
+         display: flex;
+         flex-direction: column;
+         gap: 5px;
+      }
    </style>
 </h:head>
 
@@ -422,8 +474,16 @@
    <h4>Профіль</h4>
 </div>
 <div class="postsContainer">
-   <h2>#{userBean.user.name}</h2>
-   <h2>#{userBean.user.id}</h2>
+   <div class="user">
+      <div>
+         <h2 class="userName">#{userBean.user.name}</h2>
+         <h2 style="color:#9ca3af; font-size: 16px">#{userBean.user.email}</h2>
+         <h:commandButton value="Edit"  id="editUserBtn" styleClass="editUserBtn"/>
+      </div>
+      <div class="userIcon1">#{userBean.user.name.charAt(0)}</div>
+   </div>
+
+
    <h:dataTable value="#{postBean.userPosts}" var="post" styleClass="postsBody" >
          <h:column styleClass="postBody" >
                <div class="userIcon">#{post.creator.name.charAt(0)}</div>
@@ -483,20 +543,28 @@
    let closeBtn = document.getElementById("close");
 
    let modalEdit = document.getElementById("modalEdit");
-   let btnEdit =
+   let btnEdit = document.getElementById("editUserBtn");
+   let closeBtnEdit = document.getElementById("closeEdit");
+   btnEdit.onclick =()=>{
+      modalEdit.style.display ="flex"
+   }
 
 
-   console.log(closeBtn)
    btn?.addEventListener("click", function () {
       modal.style.display = "flex";
    });
    window.onclick = (event)=>{
-      if(event.target === modal){
+      if(event.target === modal || event.target === modalEdit){
          modal.style.display = "none"
+         modalEdit.style.display="none"
       }
    }
    closeBtn.onclick = ()=>{
       modal.style.display = "none"
+
+   }
+   closeBtnEdit.onclick = () =>{
+      modalEdit.style.display="none"
    }
 </script>
 </html>

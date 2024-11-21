@@ -172,7 +172,10 @@
                         <div class="input-container">
                             <h:inputText id="password" value="#{userBean.user.password}" a:placeholder="Enter password" type="password"/>
                         </div>
-                        <h:commandButton value="Login" action="#{userBean.loginUser()}" styleClass="submit"/>
+                        <h:form>
+                            <h:commandButton value="Login" action="#{userBean.loginUser()}" styleClass="submit"/>
+                        </h:form>
+
                     </h:form>
                 </div>
                 <div class="signup-link">
